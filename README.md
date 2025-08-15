@@ -1,5 +1,9 @@
 # music-player-ui-obs
 
+![浏览器内效果](https://github.com/user-attachments/assets/54eaa616-28c0-4e88-aebc-db9a551abc52)
+
+![OBS内效果](https://github.com/user-attachments/assets/201fe077-460c-4581-af49-68fa8425e3e9)
+
 模拟音乐播放器UI界面，通过OBS录制视频，制作“音乐播放器效果”视频。
 
 这个项目由V0及GPT-5开发，目前基本满足我的需求，因此暂时不会再有改动。
@@ -24,7 +28,7 @@ pnpm dev
 
 浏览器内操作：
 
-1. 打开https://music-player-ui-obs.keke.cc/，选择封面（封面可以是视频也可以是图片，是视频的话会随音频同步播放），选择音频
+1. 打开https://music-player-ui-obs.keke.cc/ ，选择封面（封面可以是视频也可以是图片，是视频的话会随音频同步播放），选择音频
 
 2. 网页滚动到下方，修改歌名、艺术家名
 
@@ -34,7 +38,7 @@ pnpm dev
 
 OBS内操作：
 
-1. OBS添加浏览器源，URL输入https://music-player-ui-obs.keke.cc/，宽度1920，高度1080（宽高可随你OBS输出视频的分辨率/画布大小更改，不过目前只保证网页在1920x1080下显示效果最好，其他宽高下的效果不保证好）
+1. OBS添加浏览器源，URL输入https://music-player-ui-obs.keke.cc/ ，宽度1920，高度1080（宽高可随你OBS输出视频的分辨率/画布大小更改，不过目前只保证网页在1920x1080下显示效果最好，其他宽高下的效果不保证好）
 
 2. 选中刚添加的浏览器源，点击 交互
 
