@@ -485,6 +485,13 @@ export function MusicPlayer({ fullscreen = false, onBackToConfig }: MusicPlayerP
                     e.currentTarget.value = ""
                   }}
                 />
+                <Button
+                  onClick={handleGoToPlayer}
+                  className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-4 py-2 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-200"
+                  disabled={!audioFile && !(coverMedia?.type === "video")}
+                >
+                  🎵 进入播放器页面
+                </Button>
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -632,15 +639,7 @@ export function MusicPlayer({ fullscreen = false, onBackToConfig }: MusicPlayerP
             </div>
           </div>
 
-          <div className="flex justify-center pt-3 border-t border-gray-200">
-            <Button
-              onClick={handleGoToPlayer}
-              className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-2 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
-              disabled={!audioFile && !(coverMedia?.type === "video")}
-            >
-              🎵 进入播放器页面
-            </Button>
-          </div>
+          
         </div>
       </div>
 
