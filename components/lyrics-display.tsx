@@ -103,8 +103,8 @@ export function LyricsDisplay({ lyrics, currentTime }: LyricsDisplayProps) {
 
   if (!parsedLyrics.length) {
     return (
-      <div className="flex-1 flex items-center justify-center p-8">
-        <p className="text-white/50 text-lg">暂无歌词</p>
+      <div className="flex-1 flex items-center justify-center p-8 lg:p-12">
+        <p className="text-white/50 text-lg lg:text-2xl">暂无歌词</p>
       </div>
     )
   }
@@ -113,25 +113,25 @@ export function LyricsDisplay({ lyrics, currentTime }: LyricsDisplayProps) {
     <div className="flex-1 flex flex-col h-full">
       <div
         ref={containerRef}
-        className="flex-1 overflow-y-auto scrollbar-hide px-8"
+        className="flex-1 overflow-y-auto scrollbar-hide px-8 lg:px-16"
         style={{
           scrollbarWidth: "none",
           msOverflowStyle: "none",
         }}
       >
-        <div className="space-y-6 py-32">
+        <div className="space-y-8 lg:space-y-12 py-32 lg:py-44">
           {parsedLyrics.map((line, index) => (
             <p
               key={index}
               className={`transition-all duration-700 leading-relaxed text-center ${
                 index === currentLyricIndex
-                  ? "text-white text-2xl font-bold transform scale-105 drop-shadow-lg"
+                  ? "text-white text-2xl lg:text-4xl xl:text-5xl font-bold transform scale-105 drop-shadow-[0_0_24px_rgba(255,255,255,0.5)]"
                   : index === currentLyricIndex + 1
-                    ? "text-white/80 text-lg"
-                    : "text-white/40 text-base"
+                    ? "text-white/80 text-xl lg:text-3xl xl:text-4xl"
+                    : "text-white/40 text-lg lg:text-2xl"
               }`}
               style={{
-                textShadow: index === currentLyricIndex ? "0 0 20px rgba(255,255,255,0.5)" : "none",
+                textShadow: index === currentLyricIndex ? "0 0 24px rgba(255,255,255,0.55)" : "none",
               }}
             >
               {line.text}

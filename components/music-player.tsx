@@ -387,15 +387,15 @@ export function MusicPlayer({ fullscreen = false, onBackToConfig }: MusicPlayerP
               )}
             </div>
 
-            <div className="relative z-10 w-1/2 flex flex-col items-center justify-center py-8 px-6">
+            <div className="relative z-10 w-[58%] flex flex-col items-center justify-center py-24 px-6 gap-16">
               <div className="relative group">
-                <div className="relative rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm mb-6">
+                <div className="relative rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm">
                   {coverMedia ? (
                     coverMedia.type === "image" ? (
                       <img
                         src={coverMedia.url || "/placeholder.svg"}
                         alt="Album Cover"
-                        className="max-w-80 max-h-80 object-contain bg-black/20"
+                        className="max-w-80 max-h-80 lg:max-w-[28rem] lg:max-h-[28rem] object-contain bg-black/20"
                       />
                     ) : (
                       <video
@@ -404,12 +404,12 @@ export function MusicPlayer({ fullscreen = false, onBackToConfig }: MusicPlayerP
                         loop
                         muted={!!audioFile}
                         playsInline
-                        className="max-w-80 max-h-80 object-contain bg-black/20"
+                        className="max-w-80 max-h-80 lg:max-w-[28rem] lg:max-h-[28rem] object-contain bg-black/20"
                       />
                     )
                   ) : (
-                    <div className="w-80 h-80 flex items-center justify-center bg-gradient-to-br from-gray-700 to-gray-800">
-                      <div className="text-6xl md:text-8xl text-white/30">♪</div>
+                    <div className="w-80 h-80 lg:w-[28rem] lg:h-[28rem] flex items-center justify-center bg-gradient-to-br from-gray-700 to-gray-800">
+                      <div className="text-6xl md:text-8xl lg:text-[8rem] text-white/30">♪</div>
                     </div>
                   )}
                 </div>
@@ -417,11 +417,11 @@ export function MusicPlayer({ fullscreen = false, onBackToConfig }: MusicPlayerP
                 <div className="absolute -inset-4 bg-gradient-to-br from-white/5 to-transparent rounded-3xl blur-xl opacity-50 group-hover:opacity-70 transition-opacity" />
               </div>
 
-              <div className="text-center mb-6 w-full max-w-md">
-                <div className="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-3 tracking-tight">
+              <div className="text-center w-full max-w-xl">
+                <div className="text-2xl md:text-3xl lg:text-5xl xl:text-6xl font-bold text-white mb-3 tracking-tight">
                   {songTitle || "歌曲名称"}
                 </div>
-                <div className="text-lg md:text-xl text-white/60 font-medium">{artistName || "艺术家"}</div>
+                <div className="text-xl md:text-2xl lg:text-3xl text-white/60 font-medium">{artistName || "艺术家"}</div>
               </div>
 
               <div className="w-full max-w-md">
@@ -436,11 +436,11 @@ export function MusicPlayer({ fullscreen = false, onBackToConfig }: MusicPlayerP
               </div>
             </div>
 
-            <div className="relative z-10 w-1/2 flex flex-col h-full py-6">
+            <div className="relative z-10 w-[42%] flex flex-col h-full py-14">
               <div className="flex-1 min-h-0 pb-2">
                 <LyricsDisplay lyrics={lyrics} currentTime={currentTime} />
               </div>
-              <div className="h-16 px-6 pb-2 flex-shrink-0">
+              <div className="h-16 lg:h-20 xl:h-24 px-6 pb-2 flex-shrink-0">
                 {audioVisualizerEnabled && (
                   <AudioVisualizer audioElement={mediaElement} isEnabled={true} visualizerType={visualizerType} />
                 )}
@@ -684,15 +684,15 @@ export function MusicPlayer({ fullscreen = false, onBackToConfig }: MusicPlayerP
                 )}
               </div>
 
-              <div className="relative z-10 w-1/2 flex flex-col items-center justify-center py-8 px-6">
+              <div className="relative z-10 w-1/2 flex flex-col items-center justify-center py-24 px-6 gap-16">
                 <div className="relative group">
-                  <div className="relative rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm mb-6">
+                  <div className="relative rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm">
                     {coverMedia ? (
                       coverMedia.type === "image" ? (
                         <img
                           src={coverMedia.url || "/placeholder.svg"}
                           alt="Album Cover"
-                          className="max-w-80 max-h-80 object-contain bg-black/20"
+                          className="max-w-80 max-h-80 lg:max-w-[28rem] lg:max-h-[28rem] object-contain bg-black/20"
                         />
                       ) : (
                         <video
@@ -701,12 +701,12 @@ export function MusicPlayer({ fullscreen = false, onBackToConfig }: MusicPlayerP
                           loop
                           muted={!!audioFile}
                           playsInline
-                          className="max-w-80 max-h-80 object-contain bg-black/20"
+                          className="max-w-80 max-h-80 lg:max-w-[28rem] lg:max-h-[28rem] object-contain bg-black/20"
                         />
                       )
                     ) : (
-                      <div className="w-80 h-80 flex items-center justify-center bg-gradient-to-br from-gray-700 to-gray-800">
-                        <div className="text-6xl md:text-8xl text-white/30">♪</div>
+                      <div className="w-80 h-80 lg:w-[28rem] lg:h-[28rem] flex items-center justify-center bg-gradient-to-br from-gray-700 to-gray-800">
+                        <div className="text-6xl md:text-8xl lg:text-[8rem] text-white/30">♪</div>
                       </div>
                     )}
                   </div>
@@ -714,20 +714,20 @@ export function MusicPlayer({ fullscreen = false, onBackToConfig }: MusicPlayerP
                   <div className="absolute -inset-4 bg-gradient-to-br from-white/5 to-transparent rounded-3xl blur-xl opacity-50 group-hover:opacity-70 transition-opacity" />
                 </div>
 
-                <div className="text-center mb-6 w-full max-w-md">
+                <div className="text-center mb-6 w-full max-w-md lg:max-w-xl">
                   <input
                     type="text"
                     value={songTitle}
                     onChange={(e) => setSongTitle(e.target.value)}
                     placeholder="歌曲名称"
-                    className="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-3 tracking-tight bg-transparent border-none outline-none text-center w-full placeholder-white/40 focus:bg-white/5 rounded-lg px-2 py-1"
+                    className="text-xl md:text-2xl lg:text-4xl xl:text-5xl font-bold text-white mb-3 tracking-tight bg-transparent border-none outline-none text-center w-full placeholder-white/40 focus:bg-white/5 rounded-lg px-2 py-1"
                   />
                   <input
                     type="text"
                     value={artistName}
                     onChange={(e) => setArtistName(e.target.value)}
                     placeholder="艺术家"
-                    className="text-lg md:text-xl text-white/60 font-medium bg-transparent border-none outline-none text-center w-full placeholder-white/30 focus:bg-white/5 rounded-lg px-2 py-1"
+                    className="text-lg md:text-xl lg:text-2xl text-white/60 font-medium bg-transparent border-none outline-none text-center w-full placeholder-white/30 focus:bg-white/5 rounded-lg px-2 py-1"
                   />
                 </div>
 
@@ -743,11 +743,11 @@ export function MusicPlayer({ fullscreen = false, onBackToConfig }: MusicPlayerP
                 </div>
               </div>
 
-              <div className="relative z-10 w-1/2 flex flex-col h-full py-6">
+              <div className="relative z-10 w-1/2 flex flex-col h-full py-16">
                 <div className="flex-1 min-h-0 pb-2">
                   <LyricsDisplay lyrics={lyrics} currentTime={currentTime} />
                 </div>
-                <div className="h-8 md:h-10 lg:h-12 px-6 pb-2 flex-shrink-0">
+                <div className="h-8 md:h-10 lg:h-16 xl:h-20 px-6 pb-2 flex-shrink-0">
                   {audioVisualizerEnabled && (
                     <AudioVisualizer audioElement={mediaElement} isEnabled={true} visualizerType={visualizerType} />
                   )}
