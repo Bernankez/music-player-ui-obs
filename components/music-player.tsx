@@ -1,16 +1,20 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { PlayerControls } from "./player-controls"
 import { LyricsDisplay } from "./lyrics-display"
 import { FileUploader } from "./file-uploader"
 import { AspectRatioSelector } from "./aspect-ratio-selector"
 import { AudioVisualizer } from "./audio-visualizer"
 import { Button } from "@/components/ui/button"
+// Dialog 不再用于导入二维码，已移除
 import { Slider } from "@/components/ui/slider"
 import { Switch } from "@/components/ui/switch"
 import { useRouter } from "next/navigation"
 import { useMusicPlayer } from "@/contexts/music-player-context"
+import QRCodeLib from "qrcode"
+import { compressToEncodedURIComponent, decompressFromEncodedURIComponent } from "lz-string"
+import QrScanner from "qr-scanner"
 
 interface MusicPlayerProps {
   fullscreen?: boolean
@@ -20,6 +24,8 @@ interface MusicPlayerProps {
 export function MusicPlayer({ fullscreen = false, onBackToConfig }: MusicPlayerProps) {
   const [lyrics, setLyrics] = useState("")
   const router = useRouter()
+  // 使用 useRef 保存文件输入引用
+  const importFileInputRef = useRef<HTMLInputElement>(null)
 
   const {
     audioFile,
@@ -157,6 +163,80 @@ export function MusicPlayer({ fullscreen = false, onBackToConfig }: MusicPlayerP
       activeElement.removeEventListener("ended", handleEnded)
     }
   }, [audioFile, coverMedia, isPlaying, setCurrentTime, setDuration, setIsPlaying])
+
+  const buildExportPayload = () => {
+    const payload = {
+      v: 1,
+      songTitle,
+      artistName,
+      lyrics,
+      aspectRatio,
+      blurOverlayColor,
+      blurOverlayOpacity,
+      blurIntensity,
+      audioVisualizerEnabled,
+      visualizerType,
+    }
+    const json = JSON.stringify(payload)
+    const packed = "MP1:" + compressToEncodedURIComponent(json)
+    return packed
+  }
+
+  const handleExportImage = async () => {
+    try {
+      const data = buildExportPayload()
+      const url = await QRCodeLib.toDataURL(data, {
+        errorCorrectionLevel: "M",
+        margin: 1,
+        scale: 8,
+      })
+      const link = document.createElement("a")
+      const safeTitle = (songTitle || "music-config").replace(/[^\w\-]+/g, "-")
+      link.href = url
+      link.download = `${safeTitle}.png`
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+    } catch (e) {
+      console.error("导出二维码失败", e)
+    }
+  }
+
+  const applyImportedData = (data: any) => {
+    if (typeof data.songTitle === "string") setSongTitle(data.songTitle)
+    if (typeof data.artistName === "string") setArtistName(data.artistName)
+    if (typeof data.lyrics === "string") setLyrics(data.lyrics)
+    if (typeof data.aspectRatio === "string") setAspectRatio(data.aspectRatio)
+    if (typeof data.blurOverlayColor === "string") setBlurOverlayColor(data.blurOverlayColor)
+    if (typeof data.blurOverlayOpacity === "number") setBlurOverlayOpacity(data.blurOverlayOpacity)
+    if (typeof data.blurIntensity === "number") setBlurIntensity(data.blurIntensity)
+    if (typeof data.audioVisualizerEnabled === "boolean") setAudioVisualizerEnabled(data.audioVisualizerEnabled)
+    if (typeof data.visualizerType === "string") setVisualizerType(data.visualizerType)
+  }
+
+  const handleImportFromText = (text: string) => {
+    try {
+      const trimmed = text.trim()
+      if (!trimmed.startsWith("MP1:")) throw new Error("数据格式不正确")
+      const decompressed = decompressFromEncodedURIComponent(trimmed.slice(4))
+      if (!decompressed) throw new Error("数据解压失败")
+      const obj = JSON.parse(decompressed)
+      applyImportedData(obj)
+    } catch (err) {
+      console.error("导入失败", err)
+      alert("导入失败：二维码内容无效")
+    }
+  }
+
+  const onQrImageSelected = async (file: File) => {
+    try {
+      const result = await QrScanner.scanImage(file, { returnDetailedScanResult: true })
+      handleImportFromText(result.data)
+    } catch (err) {
+      console.error("二维码解析失败", err)
+      alert("二维码解析失败，请更换清晰的二维码图片")
+    }
+  }
 
   const togglePlay = async () => {
     const audio = audioRef.current
@@ -379,7 +459,34 @@ export function MusicPlayer({ fullscreen = false, onBackToConfig }: MusicPlayerP
       <div className="p-4">
         <div className="bg-white rounded-2xl p-4 border border-gray-200 shadow-xl space-y-4">
           <div className="space-y-3">
-            <h2 className="text-lg font-bold text-gray-800 border-b border-gray-200 pb-1">基础设置</h2>
+            <div className="flex items-center justify-between border-b border-gray-200 pb-1">
+              <h2 className="text-lg font-bold text-gray-800">基础设置</h2>
+              <div className="flex items-center gap-2">
+                <Button size="sm" variant="outline" onClick={handleExportImage}>导出二维码</Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => {
+                    const input = importFileInputRef.current
+                    if (input) input.click()
+                  }}
+                >
+                  从二维码导入
+                </Button>
+                <input
+                  ref={importFileInputRef}
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(e) => {
+                    const f = e.target.files?.[0]
+                    if (f) onQrImageSelected(f)
+                    // 清空以便下一次选择同一文件也能触发
+                    e.currentTarget.value = ""
+                  }}
+                />
+              </div>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="bg-gray-50 rounded-xl p-3 space-y-2">
                 <h3 className="text-sm font-semibold text-gray-700 flex items-center gap-2">
