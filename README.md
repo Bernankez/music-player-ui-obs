@@ -32,7 +32,7 @@ pnpm dev
 
 2. 网页滚动到下方，修改歌名、艺术家名
 
-3. 回到上方的歌词编辑部分，将带时间轴的歌词粘贴进去（这一步我使用Aegisub打轴）
+3. 回到上方的歌词编辑部分，将带时间轴的歌词粘贴进去（这一步我使用Aegisub打轴，ASS转LRC https://www.subeasy.ai/zh-CN/convert-ass-to-lrc ）
 
 4. 点击最上方的导出二维码，保存该二维码
 
