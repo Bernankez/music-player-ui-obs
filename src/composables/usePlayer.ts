@@ -105,7 +105,7 @@ export class Player {
       isPlaying: this.#isPlaying,
     });
 
-    this.#timer = requestAnimationFrame(this.#tick);
+    this.#timer = requestAnimationFrame(this.#tick.bind(this));
   }
 
   #emit<T extends PlayerEventType>(type: T, data?: PlayerEventMap[T]) {
@@ -143,7 +143,7 @@ export class Player {
     }
     this.#isPlaying = true;
     this.#lastTickTime = Date.now();
-    this.#timer = requestAnimationFrame(this.#tick);
+    this.#timer = requestAnimationFrame(this.#tick.bind(this));
 
     this.#emit("play", {
       time: this.#time,
