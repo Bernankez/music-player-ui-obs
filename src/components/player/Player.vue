@@ -1,5 +1,9 @@
 <script setup lang="ts">
+import { usePlayer } from "@/composables/usePlayer";
 
+const { time, totalTime, progress } = usePlayer();
+totalTime.value = 5000;
+time.value = 2000;
 </script>
 
 <template>
@@ -14,7 +18,7 @@
           <PlayerArtist />
         </div>
         <div class="mx-auto w-2/3 flex flex-col gap-rate-2">
-          <PlayerProgressBar />
+          <PlayerProgressBar v-model:progress="progress" :total-time :time />
           <PlayerControl />
         </div>
       </div>
