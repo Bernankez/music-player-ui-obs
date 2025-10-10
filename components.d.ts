@@ -16,6 +16,7 @@ declare module 'vue' {
     PlayerBackground: typeof import('./src/components/player/PlayerBackground.vue')['default']
     PlayerControl: typeof import('./src/components/player/PlayerControl.vue')['default']
     PlayerCover: typeof import('./src/components/player/PlayerCover.vue')['default']
+    Playerlyric: typeof import('./src/components/player/playerlyric.vue')['default']
     PlayerLyric: typeof import('./src/components/player/PlayerLyric.vue')['default']
     PlayerProgressBar: typeof import('./src/components/player/PlayerProgressBar.vue')['default']
     PlayerTitle: typeof import('./src/components/player/PlayerTitle.vue')['default']
