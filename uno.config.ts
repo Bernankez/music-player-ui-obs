@@ -52,6 +52,7 @@ export default defineConfig({
   },
   rules: [
     [/^text-rate(?:-?(.+))?$/, ([, r]) => ({ [`font-size`]: `calc(var(--base-font-size) * ${r})` })],
+    [/^leading-rate(?:-?(.+))?$/, ([, r]) => ({ [`line-height`]: `calc(var(--base-font-size) * ${r})` })],
     [/^w-rate(?:-?(.+))?$/, ([, r]) => ({ [`width`]: `calc(var(--base-font-size) * ${r})` })],
     [/^h-rate(?:-?(.+))?$/, ([, r]) => ({ [`height`]: `calc(var(--base-font-size) * ${r})` })],
     // padding
