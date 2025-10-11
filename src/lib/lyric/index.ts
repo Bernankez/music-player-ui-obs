@@ -12,9 +12,9 @@ export const DEFAULT_METADATA_MAP = {
 
 export function findCurrentLyric(lyrics: LyricLine[], currentTime: number) {
   if (lyrics.length === 0)
-    return null;
+    return undefined;
 
-  let currentLyric: LyricLine | null = null;
+  let currentLyric: LyricLine | undefined;
 
   for (const lyric of lyrics) {
     if (lyric.time <= currentTime) {

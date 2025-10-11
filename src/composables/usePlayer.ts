@@ -193,8 +193,6 @@ export function usePlayer() {
     playerRef.value.destory();
   });
 
-  // TODO test file (AI generate)
-
   const isPlaying = computed({
     get: () => _isPlaying.value,
     set: (value) => {
